@@ -5,7 +5,7 @@
 /* wpm color */
 #define CLR_WPM BG_USR(2) FG_USR(6) TXT_BLINKING
 /* mistakes color */
-#define CLR_MISTAKES BG_USER(7) FG_USER(0)
+#define CLR_MISTAKES BG_USR(7) FG_USR(0)
 /* letter color */
 #define CLR_CURRENT BG_USR(5) TXT_BOLD
 /* word color */
