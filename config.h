@@ -13,7 +13,7 @@
 /* text color */
 #define CLR_TEXT 
 
-char* all_chars = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";	/* 4x as likely to choose a lowercase than an uppercase */
+char all_chars[256] = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";	/* 4x as likely to choose a lowercase than an uppercase */
 
 int repeat_mistakes = 1; /* repeat letters leading up to a mistake */
 /* how many mistakes to remember, and their length */
@@ -46,7 +46,7 @@ unsigned int gen_length = 20;
 
 struct option options[] = {
 /*	 text			setting */
-	{"character list",	{.s=&all_chars}},
+	{"character list",	{.s=all_chars}},
 	{"repeat mistakes",	{.b=&repeat_mistakes}},
 	{"autosave",		{.b=&save_progress}},
 	{"metronome ?",		{.b=&use_metronome}},

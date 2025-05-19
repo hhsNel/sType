@@ -1,6 +1,6 @@
 struct option_value {
 	int *b;
-	char **s;
+	char *s;
 	unsigned int *u;
 };
 

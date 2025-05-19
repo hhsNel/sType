@@ -15,6 +15,7 @@ void handle_edit_option(struct option o);
 void render_options() {
 	unsigned int i, max_offset = 0, current_offset;
 
+	printf("\033[?25l");
 	chosen_option = 0;
 	
 	for(i = 0; i < OPTIONS_LENGTH; ++i) {
@@ -28,6 +29,8 @@ void render_options() {
 			render_option(options[i], max_offset, i == chosen_option);
 		}
 	} while(handle_option_input());
+
+	printf("\033[?25h");
 }
 
 int handle_option_input() {
@@ -35,6 +38,7 @@ int handle_option_input() {
 
 	enter_immediate();
 	scanf("%c", &c);
+
 	switch(c) {
 		case 'q':
 			return 0;
@@ -60,7 +64,7 @@ void render_option(struct option o, unsigned int offset, int is_chosen) {
 		return;
 	}
 	if(o.value.s != NULL) {
-		printf("STRING     \t|\t%s\n", *o.value.s);
+		printf("STRING     \t|\t%s\n", o.value.s);
 		return;
 	}
 	printf("BOOLEAN     \t|\t%c\n", (*o.value.b) ? 'T' : 'F');
@@ -72,21 +76,28 @@ unsigned int calculate_offset(struct option o) {
 
 void handle_edit_option(struct option o) {
 	char c;
+	int valid_input = 0;
 
 	enter_normal();
 	printf("\n\n");
-	while(1) {
-		printf("\033[27mEDIT OPTION: \033[7m");
-		if(o.value.u != NULL && !scanf("%u", o.value.u)) {
-			return;
-		}
-		if(o.value.s != NULL && !scanf("%s", *o.value.s)) {
-			return;
-		}
-		if(!scanf("%c", &c) && (c == 't' || c == 'T' || c == 'f' || c == 'F')) {
-			*o.value.b = c == 't' || c == 'T';
-			return;
+	while(!valid_input) {
+		printf("\033[1A\033[2K\033[27mEDIT OPTION: \033[7m");
+		if(o.value.u != NULL && scanf("%u", o.value.u)) {
+			valid_input = 1;
+		} else {
+			if(o.value.s != NULL && scanf("%s", o.value.s)) {
+				valid_input = 1;
+			} else {
+				if(scanf("%c", &c) && (c == 't' || c == 'T' || c == 'f' || c == 'F')) {
+					*o.value.b = c == 't' || c == 'T';
+					goto cleanup;
+				}
+				if(c != '\n') while (getchar() != '\n');
+			}
 		}
 	};
+	cleanup:
+	while (getchar() != '\n');
+	printf("\033[27m");
 }
 
