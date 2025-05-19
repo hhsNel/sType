@@ -7,5 +7,5 @@ struct option_value {
 struct option {
 	char *dsp_string;
 	struct option_value value;
-}
-	
+};
+
