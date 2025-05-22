@@ -25,14 +25,15 @@ int save_progress = 1;
 char progress_file[] = ".sType-progress";
 
 /* menu controls */
-//struct key menu_keys[] = {
-///*	 key	function */
-//	{'q',	quit},
-//	{':',	settings},
-//	{'i',	start},
-//	{'w',	manual_save},
-//	{'p',	view_progress},
-//};
+struct key menu_keys[] = {
+/*	 key	function */
+	{'q',	quit},
+	{':',	render_options},
+	{'i',	start},
+	{'w',	manual_save},
+	{'p',	view_progress},
+};
+char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: INDEV\n"
 
 /* use metronome during typing */
 int use_metronome = 0;
@@ -46,12 +47,13 @@ unsigned int gen_length = 20;
 
 struct option options[] = {
 /*	 text			setting */
-	{"character list",	{.s=all_chars}},
-	{"repeat mistakes",	{.b=&repeat_mistakes}},
-	{"autosave",		{.b=&save_progress}},
-	{"metronome ?",		{.b=&use_metronome}},
-	{"metronome delay",	{.u=&metronome_delay}},
-	{"word len",		{.u=&word_length}},
-	{"text len",		{.u=&gen_length}},
+	{"character list",      {.s=all_chars}},
+	{"repeat mistakes",     {.b=&repeat_mistakes}},
+	{"autosave",            {.b=&save_progress}},
+	{"metronome ?",	        {.b=&use_metronome}},
+	{"metronome delay",     {.u=&metronome_delay}},
+	{"word len",            {.u=&word_length}},
+	{"text len",            {.u=&gen_length}},
+	{"main menu string",    {.s=menu_str}},
 };
 

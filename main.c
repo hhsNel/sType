@@ -1,6 +1,7 @@
 #include "color.h"
 #include "option.h"
 #include "key.h"
+#include "menufuncs.h"
 #include "config.h"
 #include "termmodes.h"
 #include "mainmenu.h"
