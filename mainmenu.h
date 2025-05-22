@@ -40,9 +40,7 @@ int handle_menu_input() {
 
 	if((unsigned char)c == 27) {
 		printf("Universal quit\n");
-		printf("\033[?25h");
-		enter_normal();
-		exit(0);
+		return 0;
 	}
 
 	for(i = 0; i < MENU_LENGTH; ++i) {
@@ -50,6 +48,7 @@ int handle_menu_input() {
 			menu_keys[i].func();
 		}
 	}
+	return 1;
 }
 
 #endif
