@@ -22,7 +22,7 @@ char mistake_buffer[4][4];
 /* auto-save progress */
 int save_progress = 1;
 /* file in which progress is saved */
-char progress_file[] = ".sType-progress";
+char progress_file[256] = ".sType-progress";
 
 /* menu controls */
 struct key menu_keys[] = {

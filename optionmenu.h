@@ -89,7 +89,7 @@ void handle_edit_option(struct option o) {
 		if(o.value.u != NULL && scanf("%u", o.value.u)) {
 			valid_input = 1;
 		} else {
-			if(o.value.s != NULL && scanf("%s", o.value.s)) {
+			if(o.value.s != NULL && scanf("%255[^\n]", o.value.s)) {
 				valid_input = 1;
 			} else {
 				if(scanf("%c", &c) && (c == 't' || c == 'T' || c == 'f' || c == 'F')) {
