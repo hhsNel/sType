@@ -9,7 +9,7 @@ char *generate_text();
 void alloc_buffer();
 
 char generate_letter() {
-	return all_chars[rand() % (sizeof(all_chars) - 1)];
+	return all_chars[rand() % strlen(all_chars)];
 }
 
 char *generate_text() {
@@ -19,7 +19,7 @@ char *generate_text() {
 	alloc_buffer();
 	s = buff;
 	for(i = 0; i < gen_length; ++i) {
-		for(j = 0; j < word_length; ++i) {
+		for(j = 0; j < word_length; ++j) {
 			*s = generate_letter();
 			++s;
 		}
@@ -32,7 +32,7 @@ char *generate_text() {
 
 void alloc_buffer() {
 	if(buff) free (buff);
-	buff = (char *)malloc(gen_length * (word_length + 1));
+	buff = (char *)malloc(1 + gen_length * (word_length + 1));
 }
 
 #endif

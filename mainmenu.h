@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #include "optionmenu.h"
-#include "generator.h"
+#include "game.h"
 
 #define MENU_LENGTH (sizeof(menu_keys)/sizeof(menu_keys[0]))
 

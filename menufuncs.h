@@ -6,7 +6,7 @@
 
 void quit();
 void render_options();
-void start();
+void start_game();
 void manual_save();
 void view_progress();
 
@@ -16,10 +16,6 @@ void quit() {
 	exit(0);
 }
 
-void start() {
-	printf("NOT IMPLEMENTED\n");
-	exit(1);
-}
 void manual_save() {
 	printf("NOT IMPLEMENTED\n");
 	exit(1);

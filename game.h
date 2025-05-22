@@ -39,7 +39,7 @@ void display_stats() {
 	clock_gettime(CLOCK_MONOTONIC, &now);
 #define BILLION 1000000000ULL
 #define TIME_DIFF(U) (now.U - start_time.U)
-	printf(CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
+	printf("\033[2J\033[H%s" CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
 	                       TIME_DIFF(tv_sec), TIME_DIFF(tv_nsec),          TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(TIME_DIFF(tv_sec)*BILLION+TIME_DIFF(tv_nsec)),
 	                                                                                                                                                         total_mistakes());
 #undef BILLION
@@ -47,7 +47,7 @@ void display_stats() {
 }
 
 void display_text() {
-	unsinged int index = TYPED_LENGTH, word_start = (index / (word_length + 1)) * (word_length + 1), cursor_in_word = index % (word_length + 1);
+	unsigned int index = TYPED_LENGTH, word_start = (index / (word_length + 1)) * (word_length + 1), cursor_in_word = index % (word_length + 1);
 
 	if(word_start > 0) {
 		printf(CLR_TEXT "%.*s" TXT_RESET, word_start, current_text);
@@ -57,12 +57,37 @@ void display_text() {
 	}
 	printf(CLR_CURRENT "%c" TXT_RESET, current_text[index]);
 	if(cursor_in_word < word_length) {
-		printf(CLR_WORD "%.*s" TXT_RESET. word_length - cursor_in_word, typed_text + 1);
+		printf(CLR_WORD "%.*s" TXT_RESET, word_length - cursor_in_word, typed_text + 1);
 	}
 	if(word_start + word_length + 1 < gen_length * (word_length + 1) - 1) {
-		printf(CLR_TEXT "%s" TXT_RESET, text + word_start + word_length + 1);
+		printf(CLR_TEXT "%s" TXT_RESET, current_text + word_start + word_length + 1);
 	}
 	printf("\n\n");
+}
+
+void start_game() {
+	unsigned int i;
+	char c;
+
+	current_text = generate_text();
+	typed_text = current_text;
+	for(i = 0; i < PROGRESS_PTS; ++i) {
+		mistakes[i] = 0;
+	}
+	clock_gettime(CLOCK_MONOTONIC, &start_time);
+
+	enter_immediate();
+	while(typed_text < current_text + gen_length * (word_length + 1)) {
+		display_stats();
+		display_text();
+		scanf("%c", &c);
+		if(c == *typed_text) {
+			++typed_text;
+		} else {
+			insert_mistake();
+		}
+	}
+	enter_normal();
 }
 
 #endif

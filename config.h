@@ -29,7 +29,7 @@ struct key menu_keys[] = {
 /*	 key	function */
 	{'q',	quit},
 	{':',	render_options},
-	{'i',	start},
+	{'i',	start_game},
 	{'w',	manual_save},
 	{'p',	view_progress},
 };
