@@ -33,7 +33,7 @@ struct key menu_keys[] = {
 	{'w',	manual_save},
 	{'p',	view_progress},
 };
-char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: INDEV\n"
+char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: INDEV\n";
 
 /* use metronome during typing */
 int use_metronome = 0;

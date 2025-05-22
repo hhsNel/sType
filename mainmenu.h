@@ -14,8 +14,6 @@ int handle_menu_input();
 void render_menu() {
 	unsigned int i;
 
-        printf("\033[?25l");
-
         do {
                 printf("\033[2J\033[H%s\n", menu_str);
 
@@ -26,6 +24,25 @@ void render_menu() {
 
         printf("\033[?25h");
         enter_normal();
+}
+
+void summarize_keybind(struct key k) {
+	printf("%c\t|\t%p\n", k.trigger, (void *)k.func);
+}
+
+int handle_menu_input() {
+	char c;
+	unsigned int i;
+
+	enter_immediate();
+        printf("\033[?25l");
+	scanf("%c", &c);
+
+	for(i = 0; i < MENU_LENGTH; ++i) {
+		if(c == menu_keys[i].trigger) {
+			menu_keys[i].func();
+		}
+	}
 }
 
 #endif

@@ -11,6 +11,8 @@ void manual_save();
 void view_progress();
 
 void quit() {
+	printf("\033[?25h");
+	enter_normal();
 	exit(0);
 }
 
