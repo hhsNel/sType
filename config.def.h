@@ -25,14 +25,14 @@ int save_progress = 1;
 char progress_file[] = ".sType-progress";
 
 /* menu controls */
-//struct key menu_keys[] = {
-///*	 key	function */
-//	{'q',	quit},
-//	{':',	settings},
-//	{'i',	start},
-//	{'w',	manual_save},
-//	{'p',	view_progress},
-//};
+struct key menu_keys[] = {
+/*	 key	function */
+	{'q',	quit},
+	{':',	settings},
+	{'i',	start},
+	{'w',	manual_save},
+	{'p',	view_progress},
+};
 
 /* use metronome during typing */
 int use_metronome = 0;

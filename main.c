@@ -1,7 +1,9 @@
-#include "termmodes.h"
 #include "color.h"
 #include "option.h"
-#include "optionmenu.h"
+#include "key.h"
+#include "config.h"
+#include "termmodes.h"
+#include "mainmenu.h"
 
 int main(int argc, char **argv) {
 	init_term();
