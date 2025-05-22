@@ -39,10 +39,12 @@ void display_stats() {
 
 	clock_gettime(CLOCK_MONOTONIC, &now);
 #define BILLION 1000000000ULL
+#define DIFF diff_time(start_time, now)
 	printf("\033[2J\033[H" CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
-	          diff_time(now,start_time).tv_sec,diff_time(now,start_time).tv_nsec,          TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(TIME_DIFF(tv_sec)*BILLION+TIME_DIFF(tv_nsec)),
+	                                       DIFF.tv_sec, DIFF.tv_nsec,                      TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(DIFF.tv_sec*BILLION+DIFF.tv_nsec),
 	                                                                                                                                                         total_mistakes());
 #undef BILLION
+#undef DIFF
 }
 
 void display_text() {
