@@ -1,3 +1,6 @@
+#ifndef OPTIONMENU_H
+#define OPTIONMENU_H
+
 #include <stdio.h>
 #include <string.h>
 
@@ -101,4 +104,6 @@ void handle_edit_option(struct option o) {
 	while (getchar() != '\n');
 	printf("\033[27m");
 }
+
+#endif
 

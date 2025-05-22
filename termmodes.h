@@ -1,3 +1,6 @@
+#ifndef TERMMODES_H
+#define TERMMODES_H
+
 #include <unistd.h>
 #include <termios.h>
 #include <stdlib.h>
@@ -20,4 +23,6 @@ void enter_normal() {
 	term.c_lflag |= ECHO;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
+
+#endif
 
