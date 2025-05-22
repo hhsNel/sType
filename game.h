@@ -19,6 +19,7 @@ void display_stats();
 void display_text();
 void start_game();
 void update_progress();
+struct timespec diff_time(struct timespec start, struct timespec end);
 
 unsigned int total_mistakes() {
 	unsigned int i, total = 0;
@@ -38,12 +39,10 @@ void display_stats() {
 
 	clock_gettime(CLOCK_MONOTONIC, &now);
 #define BILLION 1000000000ULL
-#define TIME_DIFF(U) (now.U - start_time.U)
 	printf("\033[2J\033[H" CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
-	                       TIME_DIFF(tv_sec), TIME_DIFF(tv_nsec),          TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(TIME_DIFF(tv_sec)*BILLION+TIME_DIFF(tv_nsec)),
+	          diff_time(now,start_time).tv_sec,diff_time(now,start_time).tv_nsec,          TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(TIME_DIFF(tv_sec)*BILLION+TIME_DIFF(tv_nsec)),
 	                                                                                                                                                         total_mistakes());
 #undef BILLION
-#undef TIME_DIFF
 }
 
 void display_text() {
@@ -88,6 +87,20 @@ void start_game() {
 		}
 	}
 	enter_normal();
+}
+
+struct timespec diff_time(struct timespec start, struct timespec end) {
+	struct timespec diff;
+	
+	if (end.tv_nsec < start.tv_nsec) {
+		diff.tv_sec = end.tv_sec - start.tv_sec - 1;
+		diff.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
+	} else {
+		diff.tv_sec = end.tv_sec - start.tv_sec;
+		diff.tv_nsec = end.tv_nsec - start.tv_nsec;
+	}
+	
+	return diff;
 }
 
 #endif
