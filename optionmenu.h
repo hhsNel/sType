@@ -31,6 +31,7 @@ void render_options() {
 	} while(handle_option_input());
 
 	printf("\033[?25h");
+	enter_normal();
 }
 
 int handle_option_input() {
