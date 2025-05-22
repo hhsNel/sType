@@ -38,6 +38,13 @@ int handle_menu_input() {
         printf("\033[?25l");
 	scanf("%c", &c);
 
+	if((unsigned char)c == 27) {
+		printf("Universal quit\n");
+		printf("\033[?25h");
+		enter_normal();
+		exit(0);
+	}
+
 	for(i = 0; i < MENU_LENGTH; ++i) {
 		if(c == menu_keys[i].trigger) {
 			menu_keys[i].func();
