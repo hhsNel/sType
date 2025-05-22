@@ -2,6 +2,68 @@
 #define GAME_H
 
 #include "generator.h"
+#include "progress.h"
+
+#include <time.h>
+#include <string.h>
+
+static char *current_text;
+static char *typed_text;
+#define TYPED_LENGTH (typed_text-current_text)
+static unsigned int mistakes[PROGRESS_PTS];
+static struct timespec start_time;
+
+unsigned int total_mistakes();
+void insert_mistake();
+void display_stats();
+void display_text();
+void start_game();
+void update_progress();
+
+unsigned int total_mistakes() {
+	unsigned int i, total = 0;
+
+	for(i = 0; i < PROGRESS_PTS; ++i) {
+		total += mistakes[i];
+	}
+	return total;
+}
+
+void insert_mistake() {
+	mistakes[PROGRESS_PTS * TYPED_LENGTH / (gen_length * (word_length + 1))] += 1;
+}
+
+void display_stats() {
+	struct timespec now;
+
+	clock_gettime(CLOCK_MONOTONIC, &now);
+#define BILLION 1000000000ULL
+#define TIME_DIFF(U) (now.U - start_time.U)
+	printf(CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
+	                       TIME_DIFF(tv_sec), TIME_DIFF(tv_nsec),          TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(TIME_DIFF(tv_sec)*BILLION+TIME_DIFF(tv_nsec)),
+	                                                                                                                                                         total_mistakes());
+#undef BILLION
+#undef TIME_DIFF
+}
+
+void display_text() {
+	unsinged int index = TYPED_LENGTH, word_start = (index / (word_length + 1)) * (word_length + 1), cursor_in_word = index % (word_length + 1);
+
+	if(word_start > 0) {
+		printf(CLR_TEXT "%.*s" TXT_RESET, word_start, current_text);
+	}
+	if(cursor_in_word > 0) {
+		printf(CLR_WORD "%.*s" TXT_RESET, cursor_in_word, current_text + word_start);
+	}
+	printf(CLR_CURRENT "%c" TXT_RESET, current_text[index]);
+	if(cursor_in_word < word_length) {
+		printf(CLR_WORD "%.*s" TXT_RESET. word_length - cursor_in_word, typed_text + 1);
+	}
+	if(word_start + word_length + 1 < gen_length * (word_length + 1) - 1) {
+		printf(CLR_TEXT "%s" TXT_RESET, text + word_start + word_length + 1);
+	}
+	printf("\n\n");
+}
 
 #endif
 

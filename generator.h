@@ -32,7 +32,7 @@ char *generate_text() {
 
 void alloc_buffer() {
 	if(buff) free (buff);
-	buff = (char *)malloc(1 + gen_length * (word_length + 1));
+	buff = (char *)malloc(gen_length * (word_length + 1));
 }
 
 #endif
