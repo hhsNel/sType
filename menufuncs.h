@@ -8,17 +8,12 @@ void quit();
 void render_options();
 void start_game();
 void save_global_progress();
-void view_progress();
+void render_progress_menu();
 
 void quit() {
 	printf("\033[?25h");
 	enter_normal();
 	exit(0);
-}
-
-void view_progress() {
-	printf("NOT IMPLEMENTED\n");
-	exit(1);
 }
 
 #endif

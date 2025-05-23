@@ -5,7 +5,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define PROGRESS_PTS 32
 #define PROGRESS_PATH_LEN 512
 struct progress {
 	unsigned long int mistake_pts[PROGRESS_PTS];

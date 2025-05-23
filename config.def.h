@@ -12,6 +12,10 @@
 #define CLR_WORD BG_USR(3)
 /* text color */
 #define CLR_TEXT 
+/* text to display as the first "pixel" of the mistake graph */
+#define MISTAKE_EQ FG_USR(7) TXT_BOLD "X" TXT_RESET
+/* text to display below the first "pixel" */
+#define MISTAKE_GT FG_USR(7) "|" TXT_RESET
 
 char all_chars[256] = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";	/* 4x as likely to choose a lowercase than an uppercase */
 
@@ -31,7 +35,7 @@ struct key menu_keys[] = {
 	{':',	render_options},
 	{'i',	start_game},
 	{'w',	save_global_progress},
-	{'p',	view_progress},
+	{'p',	render_progress_menu},
 };
 char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 0.0.2\n";
 
@@ -49,4 +53,7 @@ struct option options[] = {
 	{"text len",            {.u=&gen_length}},
 	{"main menu string",    {.s=menu_str}},
 };
+
+#define PROGRESS_PTS 32
+#define PROGRESS_BAR_MAX_HEIGHT 64
 
