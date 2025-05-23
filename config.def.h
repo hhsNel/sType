@@ -22,7 +22,7 @@ char mistake_buffer[4][4];
 /* auto-save progress */
 int save_progress = 1;
 /* file in which progress is saved */
-char progress_file[256] = ".sType-progress";
+char progress_file[256] = "progress";
 
 /* menu controls */
 struct key menu_keys[] = {
@@ -30,7 +30,7 @@ struct key menu_keys[] = {
 	{'q',	quit},
 	{':',	render_options},
 	{'i',	start_game},
-	{'w',	manual_save},
+	{'w',	save_global_progress},
 	{'p',	view_progress},
 };
 char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 0.0.2\n";
@@ -43,10 +43,10 @@ unsigned int metronome_delay = 500000;
 /* character groups */
 unsigned int word_length = 5;
 /* text length */
-unsigned int gen_length = 20;
+unsigned int gen_length = 32;
 
 struct option options[] = {
-/*	 text			setting */
+/*	 text                   setting */
 	{"character list",      {.s=all_chars}},
 	{"repeat mistakes",     {.b=&repeat_mistakes}},
 	{"autosave",            {.b=&save_progress}},

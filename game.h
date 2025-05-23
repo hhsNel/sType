@@ -42,7 +42,7 @@ void display_stats() {
 #define DIFF diff_time(start_time, now)
 	printf("\033[2J\033[H" CLR_TIME "TIME: %us %uns" TXT_RESET "\n" CLR_CHARS "CHARACTERS: %u" TXT_RESET "\n" CLR_WPM "WPM: %f" TXT_RESET "\n" CLR_MISTAKES "TOTAL MISTAKES: %u" TXT_RESET "\n",
 	                                       DIFF.tv_sec, DIFF.tv_nsec,                      TYPED_LENGTH,                    (double)(TYPED_LENGTH*12ULL*BILLION)/(double)(DIFF.tv_sec*BILLION+DIFF.tv_nsec),
-	                                                                                                                                                         total_mistakes());
+	                                                                                                                                                                         total_mistakes());
 #undef BILLION
 #undef DIFF
 }
@@ -67,6 +67,7 @@ void display_text() {
 }
 
 void start_game() {
+	struct timespec now;
 	unsigned int i;
 	char c;
 
@@ -89,6 +90,12 @@ void start_game() {
 		}
 	}
 	enter_normal();
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	for(i = 0; i < PROGRESS_PTS; ++i) {
+		global_progress.mistake_pts[i] += mistakes[i];
+	}
+	global_progress.total_chars += gen_length * (word_length + 1);
+	global_progress.total_time += diff_time(start_time, now).tv_sec * 100000000ULL + diff_time(start_time, now).tv_nsec;
 }
 
 struct timespec diff_time(struct timespec start, struct timespec end) {

@@ -10,6 +10,7 @@
 
 int main(int argc, char **argv) {
 	init_term();
+	load_global_progress();
 	srand(time(0));
 
 	render_menu();
