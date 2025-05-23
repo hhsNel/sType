@@ -37,7 +37,7 @@ struct key menu_keys[] = {
 	{'w',	save_global_progress},
 	{'p',	render_progress_menu},
 };
-char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 0.0.2\n";
+char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 1.0.1\n";
 
 /* character groups */
 unsigned int word_length = 5;
@@ -55,5 +55,5 @@ struct option options[] = {
 };
 
 #define PROGRESS_PTS 32
-#define PROGRESS_BAR_MAX_HEIGHT 64
+#define PROGRESS_BAR_MAX_HEIGHT 32
 

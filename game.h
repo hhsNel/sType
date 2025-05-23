@@ -3,6 +3,7 @@
 
 #include "generator.h"
 #include "progress.h"
+#include "progressmenu.h"
 
 #include <time.h>
 #include <string.h>
@@ -70,6 +71,7 @@ void start_game() {
 	struct timespec now;
 	unsigned int i;
 	char c;
+	struct progress p;
 
 	current_text = generate_text();
 	typed_text = current_text;
@@ -99,6 +101,13 @@ void start_game() {
 	if(save_progress) {
 		save_global_progress();
 	}
+
+	p.total_chars = gen_length * (word_length + 1);
+	p.total_time = diff_time(start_time, now).tv_sec * 1000000000ULL + diff_time(start_time, now).tv_sec;
+	for(i = 0; i < PROGRESS_PTS; ++i) {
+		p.mistake_pts[i] = mistakes[i];
+	}
+	render_progress(p);
 }
 
 struct timespec diff_time(struct timespec start, struct timespec end) {

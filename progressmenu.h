@@ -21,8 +21,11 @@ void render_progress(struct progress p) {
 		bars[i] = p.mistake_pts[i] / scale;
 	}
 
-	for(i = 0; i < PROGRESS_BAR_MAX_HEIGHT; ++i) {
-		for(j = 0; j < PROGRESS_PTS; ++i) {
+	printf("\033[2J\033[H\033[?25l");
+	enter_immediate();
+
+	for(i = PROGRESS_BAR_MAX_HEIGHT; i > 0; --i) {
+		for(j = 0; j < PROGRESS_PTS; ++j) {
 			if(bars[j] == i) {
 				printf("%s", MISTAKE_EQ);
 			} else {
@@ -36,8 +39,9 @@ void render_progress(struct progress p) {
 		printf("\n");
 	}
 	printf("TOTAL CHARS: %llu\nTOTAL NS: %llu\nAVG WPM: %f\nPress any key to proceed\n", p.total_chars, p.total_time, (double)(p.total_chars * 200000000ULL)/(double)(p.total_time));
-	enter_immediate();
 	getchar();
+
+	printf("\033[?25h");
 	enter_normal();
 }
 
