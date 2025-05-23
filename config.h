@@ -35,11 +35,6 @@ struct key menu_keys[] = {
 };
 char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 0.0.2\n";
 
-/* use metronome during typing */
-int use_metronome = 0;
-/* metronome delay in microseconds */
-unsigned int metronome_delay = 500000;
-
 /* character groups */
 unsigned int word_length = 5;
 /* text length */
