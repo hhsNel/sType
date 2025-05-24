@@ -97,7 +97,7 @@ void start_game() {
 		global_progress.mistake_pts[i] += mistakes[i];
 	}
 	global_progress.total_chars += gen_length * (word_length + 1);
-	global_progress.total_time += diff_time(start_time, now).tv_sec * 100000000ULL + diff_time(start_time, now).tv_nsec;
+	global_progress.total_time += diff_time(start_time, now).tv_sec * 1000000000ULL + diff_time(start_time, now).tv_nsec;
 	if(save_progress) {
 		save_global_progress();
 	}

@@ -38,7 +38,7 @@ void render_progress(struct progress p) {
 		}
 		printf("\n");
 	}
-	printf("TOTAL CHARS: %llu\nTOTAL NS: %llu\nAVG WPM: %f\nPress any key to proceed\n", p.total_chars, p.total_time, (double)(p.total_chars * 200000000ULL)/(double)(p.total_time));
+	printf("TOTAL CHARS: %llu\nTOTAL NS: %llu\nAVG WPM: %f\nPress any key to proceed\n", p.total_chars, p.total_time, (double)(p.total_chars * 12000000000ULL)/(double)(p.total_time));
 	getchar();
 
 	printf("\033[?25h");
