@@ -103,7 +103,7 @@ void start_game() {
 	}
 
 	p.total_chars = gen_length * (word_length + 1);
-	p.total_time = diff_time(start_time, now).tv_sec * 1000000000ULL + diff_time(start_time, now).tv_sec;
+	p.total_time = diff_time(start_time, now).tv_sec * 1000000000ULL + diff_time(start_time, now).tv_nsec;
 	for(i = 0; i < PROGRESS_PTS; ++i) {
 		p.mistake_pts[i] = mistakes[i];
 	}
