@@ -40,10 +40,12 @@ int handle_menu_input() {
 		printf("\033[?25l");
 	scanf("%c", &c);
 
+#if USE_UNIVERSAL_QUIT
 	if((unsigned char)c == 27) {
 		printf("Universal quit\n");
 		return 0;
 	}
+#endif
 
 	for(i = 0; i < MENU_LENGTH; ++i) {
 		if(c == menu_keys[i].trigger) {

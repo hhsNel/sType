@@ -28,6 +28,9 @@ int save_progress = 1;
 /* file in which progress is saved */
 char progress_file[256] = "progress";
 
+/* fallback to recover terminal state when menu_keys or quit broken */
+#define USE_UNIVERSAL_QUIT 0
+
 /* menu controls */
 struct key menu_keys[] = {
 /*	 key	function */
@@ -37,7 +40,7 @@ struct key menu_keys[] = {
 	{'w',	save_global_progress},
 	{'p',	render_progress_menu},
 };
-char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 1.0.3\n";
+char menu_str[256] = "WELCOME TO sType BY NEL!\nYOU CAN FIND THE SOURCE AT https://github.com/hhsNel/sType\nCURRENT VERSION: 1.0.4\n";
 
 /* character groups */
 unsigned int word_length = 5;
